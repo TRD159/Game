@@ -6,15 +6,19 @@ namespace MaskedMischiefNamespace
 {
   public class PlayerMovementStateMachine : StateMachine
   {
+    public PlayerRunner playerRunner;
+    
     public PlayerIdlingState IdlingState { get; }
     public PlayerWalkingState WalkingState { get; }
     public PlayerRunningState RunningState { get; }
 
-    public PlayerMovementStateMachine()
+    public PlayerMovementStateMachine(PlayerRunner player)
     {
-      IdlingState = new PlayerIdlingState();
-      WalkingState = new PlayerWalkingState();
-      RunningState = new PlayerRunningState();
+      playerRunner = player;
+      
+      IdlingState = new PlayerIdlingState(this);
+      WalkingState = new PlayerWalkingState(this);
+      RunningState = new PlayerRunningState(this);
     }
   }
 }

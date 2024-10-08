@@ -6,11 +6,16 @@ namespace MaskedMischiefNamespace
 {
   public class PlayerRunner : MonoBehaviour
   {
+    [SerializeField] private float cameraDistance;
+    private Transform cameraTransform;
     private PlayerMovementStateMachine movementStateMachine;
+    public GameInput gameInput;
+
 
     private void Awake()
     {
-      movementStateMachine = new PlayerMovementStateMachine();
+      cameraTransform = Camera.main.transform;
+      movementStateMachine = new PlayerMovementStateMachine(this);
     }
 
     private void Start()
@@ -22,6 +27,9 @@ namespace MaskedMischiefNamespace
     {
       movementStateMachine.HandleInput();
       movementStateMachine.Update();
+      cameraTransform.position = transform.position + transform.rotation * new Vector3(0, 0.75f, -(cameraDistance + 1));
+      cameraTransform.rotation = Quaternion.LookRotation(transform.position - cameraTransform.position) * Quaternion.Euler(-5, 0, 0);
+      cameraTransform.position += new Vector3(0, 1, 0);
     }
 
     private void FixedUpdate()

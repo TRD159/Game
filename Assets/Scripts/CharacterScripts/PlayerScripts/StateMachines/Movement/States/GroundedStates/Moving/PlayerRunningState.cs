@@ -6,6 +6,8 @@ namespace MaskedMischiefNamespace
 {
   public class PlayerRunningState : PlayerGroundedState
   {
-
+    public PlayerRunningState(PlayerMovementStateMachine m) : base(m)
+    {
+    }
   }
 }

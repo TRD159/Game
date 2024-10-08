@@ -6,5 +6,8 @@ namespace MaskedMischiefNamespace
 {
   public class PlayerSoftStoppingState : PlayerStoppingState
   {
+    public PlayerSoftStoppingState(PlayerMovementStateMachine m) : base(m)
+    {
+    }
   }
 }
