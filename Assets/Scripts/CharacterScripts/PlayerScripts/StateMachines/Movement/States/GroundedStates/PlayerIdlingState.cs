@@ -9,5 +9,13 @@ namespace MaskedMischiefNamespace
     public PlayerIdlingState(PlayerMovementStateMachine m) : base(m)
     {
     }
+    
+    public override void HandleInput()
+    {
+      if(jumpInput)
+      {
+        stateMachine.ChangeState(stateMachine.JumpingState);
+      }
+    }
   }
 }

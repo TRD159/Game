@@ -10,7 +10,8 @@ namespace MaskedMischiefNamespace
     private Transform cameraTransform;
     private PlayerMovementStateMachine movementStateMachine;
     public GameInput gameInput;
-
+    public float yVelocity = 0;
+    public float gravity;
 
     private void Awake()
     {
