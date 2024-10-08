@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace MaskedMischiefNamespace
 {
+  [RequireComponent(typeof(GameInput))]
   public class PlayerRunner : MonoBehaviour
   {
     [SerializeField] private float cameraDistance;
     private Transform cameraTransform;
     private PlayerMovementStateMachine movementStateMachine;
     public GameInput gameInput;
+    public Rigidbody rigidBody { get; private set; }
     public float yVelocity = 0;
     public float gravity;
 

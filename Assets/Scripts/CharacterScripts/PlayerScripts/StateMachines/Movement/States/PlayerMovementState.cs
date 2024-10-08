@@ -8,15 +8,17 @@ namespace MaskedMischiefNamespace
   public class PlayerMovementState : IState
   {
     protected PlayerMovementStateMachine stateMachine;
-    
+
     protected Vector2 movementInput;
+    protected float baseSpeed = 5f;
+    protected float speedModifier = 1f;
     protected bool jumpInput;
-    
-    public PlayerMovementState(PlayerMovementStateMachine m)
+
+    public PlayerMovementState(PlayerMovementStateMachine playermovementstatemachine)
     {
-      stateMachine = m;
+      stateMachine = playermovementstatemachine;
     }
-    
+
     public virtual void Enter()
     {
       Debug.Log("Entering State: " + GetType().Name);
@@ -28,20 +30,34 @@ namespace MaskedMischiefNamespace
       RemoveCallbacks();
     }
 
-    public virtual void HandleInput() { }
+    public virtual void HandleInput()
+    {
+      ReadInputs();
+    }
     public virtual void Update() { }
-    public virtual void PhysicsUpdate() { }
-    
+    public virtual void PhysicsUpdate()
+    {
+      Move();
+    }
+
     private void ReadInputs()
     {
       GameInput input = stateMachine.playerRunner.gameInput;
-      
+
       movementInput = input.getMovementInputVectorNormalized();
       jumpInput = input.getJumpInput();
     }
-    
-    protected virtual void AddCallbacks() {}
-    
-    protected virtual void RemoveCallbacks() {}
+
+    private void Move()
+    {
+      if (movementInput == Vector2.zero)
+      {
+        return;
+      }
+    }
+
+    protected virtual void AddCallbacks() { }
+
+    protected virtual void RemoveCallbacks() { }
   }
 }

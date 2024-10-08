@@ -6,8 +6,8 @@ using UnityEngine;
 public class GameInput : MonoBehaviour
 {
 
-  public PlayerInputActions playerInputActions;
-  public PlayerInputActions.PlayerActions playerActions; 
+  public PlayerInputActions playerInputActions { get; private set; }
+  public PlayerInputActions.PlayerActions playerActions { get; private set; }
 
   private void Awake()
   {
@@ -50,5 +50,14 @@ public class GameInput : MonoBehaviour
     movementInput = movementInput.normalized;
 
     return movementInput;
+  }
+
+  private void OnEnable()
+  {
+    playerInputActions.Enable();
+  }
+  private void OnDisable()
+  {
+    playerInputActions.Disable();
   }
 }
