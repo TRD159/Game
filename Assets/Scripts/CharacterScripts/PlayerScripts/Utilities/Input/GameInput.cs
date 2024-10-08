@@ -47,7 +47,7 @@ public class GameInput : MonoBehaviour
         movementInput.x *= -1;
     }*/
 
-    movementInput = movementInput.normalized;
+    //movementInput = movementInput.normalized;
 
     return movementInput;
   }

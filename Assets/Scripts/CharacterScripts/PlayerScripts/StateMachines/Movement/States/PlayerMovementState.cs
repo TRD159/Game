@@ -40,6 +40,12 @@ namespace MaskedMischiefNamespace
       Move();
     }
 
+    protected virtual void AddCallbacks() { }
+
+    protected virtual void RemoveCallbacks() { }
+
+    #region Main Methods
+
     private void ReadInputs()
     {
       GameInput input = stateMachine.playerRunner.gameInput;
@@ -54,10 +60,36 @@ namespace MaskedMischiefNamespace
       {
         return;
       }
+
+      Vector3 movementDirection = GetMovementInputDirection();
+      float movementspeed = getMovementSpeed();
+
+      Vector3 currentPlayerHorizontalVelocity = GetPlayerHorizontalVelocity();
+
+      stateMachine.playerRunner.rigidBody.AddForce(movementDirection * movementspeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
+    }
+    #endregion
+
+    #region Reusable Methods
+
+    protected Vector3 GetMovementInputDirection()
+    {
+      return new Vector3(movementInput.x, 0f, movementInput.y);
     }
 
-    protected virtual void AddCallbacks() { }
+    protected float getMovementSpeed()
+    {
+      return baseSpeed * speedModifier;
+    }
 
-    protected virtual void RemoveCallbacks() { }
+    private Vector3 GetPlayerHorizontalVelocity()
+    {
+      Vector3 playerHorizontalVelocity = stateMachine.playerRunner.rigidBody.velocity;
+
+      playerHorizontalVelocity.y = 0f;
+
+      return playerHorizontalVelocity;
+    }
+    #endregion
   }
 }
